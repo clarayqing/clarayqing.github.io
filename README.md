@@ -1,6 +1,6 @@
 # Clara Lee — personal website
 
-Live at https://chloeyqing.github.io/.
+Live at https://clarayqing.github.io/.
 
 A responsive, dependency-free portfolio covering algorithms, scientific computing,
 research, and competition milestones. Hosted on GitHub Pages from the main branch.
@@ -19,7 +19,7 @@ details/summary elements and remain usable without JavaScript.
 ## Content sources
 
 Research metrics and domain notes come from
-https://github.com/chloeyqing/real-gas-correction and its tracked
+https://github.com/clarayqing/real-gas-correction and its tracked
 results/tables/final_test_comparison.csv. Keep the table, summary figures, and
 evaluation notes in sync when the research changes. The errors measure agreement
 with CoolProp reference data for CO₂ within the documented domain.

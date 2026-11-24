@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#faf7f5">
     <meta name="color-scheme" content="light">
-    <title>Chloe Lee — Algorithms, physics &amp; a little curiosity</title>
-    <meta name="description" content="Chloe Lee is a high school student in Taiwan exploring algorithms and scientific computing. Discover her CO₂ modeling research, programming achievements, and approach to learning.">
-    <link rel="canonical" href="https://chloeyqing.github.io/">
+    <title>Clara Lee | Algorithms &amp; Scientific Computing</title>
+    <meta name="description" content="Clara Lee’s portfolio features competitive programming in C++, CO₂ pressure modeling, and results from math and computing competitions.">
+    <link rel="canonical" href="https://clarayqing.github.io/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Chloe Lee — Algorithms, physics &amp; a little curiosity">
-    <meta property="og:description" content="A student exploring the space between mathematical ideas, thoughtful code, and the physical world.">
-    <meta property="og:url" content="https://chloeyqing.github.io/">
+    <meta property="og:title" content="Clara Lee | Algorithms &amp; Scientific Computing">
+    <meta property="og:description" content="Competitive programming in C++, CO₂ pressure modeling, and results from math and computing competitions.">
+    <meta property="og:url" content="https://clarayqing.github.io/">
     <meta name="twitter:card" content="summary">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
@@ -22,9 +22,9 @@
 
     <header class="site-header">
         <div class="container header-inner">
-            <a class="brand" href="#top" aria-label="Chloe Lee, back to top">
+            <a class="brand" href="#top" aria-label="Clara Lee, back to top">
                 <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
-                Chloe Lee<span class="brand-heart" aria-hidden="true">♡</span>
+                Clara Lee<span class="brand-heart" aria-hidden="true">♡</span>
             </a>
             <nav class="desktop-nav" aria-label="Primary navigation">
                 <a href="#about">About</a>
@@ -50,11 +50,11 @@
         <section id="top" class="hero container" aria-labelledby="hero-title" tabindex="-1">
             <div class="hero-copy">
                 <p class="eyebrow"><span class="little-star" aria-hidden="true">✦</span> A student with a lot of questions</p>
-                <h1 id="hero-title">Hi, I’m Chloe.<br>I like a good<br><em>hard problem.</em></h1>
-                <p class="hero-description">I explore algorithms, physics, and the place where they meet. Usually with a notebook, a bit of C++, and another question.</p>
+                <h1 id="hero-title">Hi, I’m Clara.<br>I like a good<br><em>hard problem.</em></h1>
+                <p class="hero-description">I solve algorithm problems in C++ and use Python to test how well equations describe the physical world.</p>
                 <div class="hero-actions">
                     <a class="button button-primary" href="#projects">Explore my work <span aria-hidden="true">↓</span></a>
-                    <a class="text-link" href="https://github.com/chloeyqing" target="_blank" rel="noopener noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a>
+                    <a class="text-link" href="https://github.com/clarayqing" target="_blank" rel="noopener noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a>
                 </div>
                 <div class="hero-footnote">
                     <span class="status-dot" aria-hidden="true"></span>
@@ -95,9 +95,9 @@
             <div class="about-layout">
                 <h2 id="about-title">I want to know<br><em>why it works.</em></h2>
                 <div class="about-copy">
-                    <p class="lead">I’m a high school student in Taiwan, drawn to the space between mathematical ideas and things we can build.</p>
-                    <p>Competitive programming taught me to look for structure: an invariant, a useful representation, or a smaller problem hiding inside a larger one. Physics gives me a different kind of puzzle—how to turn an observation into a model, then test where that model stops working.</p>
-                    <p>I also like making ideas easier to follow. Understanding a solution means being able to explain the steps, including the ones that first seemed obvious.</p>
+                    <p class="lead">I’m a high school student in Taiwan who likes using math and code to answer concrete questions.</p>
+                    <p>When I work on a programming problem, I start with small examples and look for patterns that hold across them. For my CO₂ project, I started with the ideal-gas law and measured where its pressure predictions missed the reference values.</p>
+                    <p>I enjoy explaining the steps from the first example to the final solution, especially the ones that seemed obvious at first.</p>
                     <dl class="about-details">
                         <div><dt>My tools</dt><dd>C++ · Python · notebooks</dd></div>
                         <div><dt>My interests</dt><dd>Algorithms · physics · scientific computing</dd></div>
@@ -118,11 +118,11 @@
                     <div class="project-topline"><span class="pill">Research project</span><span class="mono">2026</span></div>
                     <h3 id="gas-project-title">Beyond the<br>ideal-gas law.</h3>
                     <p class="project-subtitle">Physics-aware symbolic correction for CO₂</p>
-                    <p>I use interpretable equations to model the compressibility correction, ΔZ. The workflow combines CoolProp reference data, regime-specific symbolic regression with PySR, and a soft gate that blends the predictions.</p>
+                    <p>I used symbolic regression with PySR to learn how much the ideal-gas law needs to be corrected for CO₂ at different temperatures and densities. The model blends equations fitted to CoolProp reference data to predict pressure across those conditions.</p>
                     <ul class="tag-list" aria-label="Project technologies">
                         <li>Python</li><li>CoolProp</li><li>PySR</li>
                     </ul>
-                    <a class="button button-primary" href="https://github.com/chloeyqing/real-gas-correction" target="_blank" rel="noopener noreferrer">Explore the repository <span aria-hidden="true">↗</span></a>
+                    <a class="button button-primary" href="https://github.com/clarayqing/real-gas-correction" target="_blank" rel="noopener noreferrer">Explore the repository <span aria-hidden="true">↗</span></a>
                 </div>
 
                 <div class="research-results">
@@ -140,13 +140,13 @@
                             <tr class="result-final"><th scope="row">Final soft gate</th><td>0.389%</td><td>0.391%</td></tr>
                         </tbody>
                     </table>
-                    <p class="result-context">These errors measure agreement with CoolProp-generated reference data for CO₂, rather than independent experimental measurements.</p>
+                    <p class="result-context">CoolProp generated the reference pressures using an equation of state for CO₂. The table shows how closely each model matches those calculated pressures.</p>
                     <details class="research-notes">
                         <summary>Domain &amp; evaluation notes <span aria-hidden="true">+</span></summary>
                         <div>
                             <p>The natural grid covers 310–500 K and molar densities of 100–20,000 mol/m³. Complete temperature isotherms are held out for validation and testing.</p>
-                            <p>The high-density stress grid is inside that domain; it tests a distribution shift, not out-of-range extrapolation. Maximum pointwise pressure errors are 9.064% on the natural test and 5.186% on the stress test.</p>
-                            <a class="text-link" href="https://github.com/chloeyqing/real-gas-correction/blob/main/results/tables/final_test_comparison.csv" target="_blank" rel="noopener noreferrer">View the full results table <span aria-hidden="true">↗</span></a>
+                            <p>The stress test uses a denser grid within that domain to check how the model handles a shift toward higher densities. Maximum pointwise pressure errors are 9.064% on the natural test and 5.186% on the stress test.</p>
+                            <a class="text-link" href="https://github.com/clarayqing/real-gas-correction/blob/main/results/tables/final_test_comparison.csv" target="_blank" rel="noopener noreferrer">View the full results table <span aria-hidden="true">↗</span></a>
                         </div>
                     </details>
                 </div>
@@ -230,8 +230,8 @@
             <div class="contact-card">
                 <div><p class="eyebrow">There’s always another good question.</p><h2 id="contact-title">Let’s figure<br><em>something out.</em></h2></div>
                 <div class="contact-copy">
-                    <p>Interested in algorithms, physics, or a project that starts with “what if”? You can find my work on GitHub.</p>
-                    <a class="button button-primary" href="https://github.com/chloeyqing" target="_blank" rel="noopener noreferrer">Say hello on GitHub <span aria-hidden="true">↗</span></a>
+                    <p>You can find my project code and research notes on GitHub.</p>
+                    <a class="button button-primary" href="https://github.com/clarayqing" target="_blank" rel="noopener noreferrer">View my GitHub profile <span aria-hidden="true">↗</span></a>
                 </div>
                 <span class="contact-star" aria-hidden="true">✧</span>
             </div>
@@ -239,7 +239,7 @@
     </main>
 
     <footer class="site-footer container">
-        <p>© 2026 Chloe Lee <span aria-hidden="true">♡</span></p>
+        <p>© 2026 Clara Lee <span aria-hidden="true">♡</span></p>
         <p>Made with curiosity. Always learning.</p>
         <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
     </footer>
