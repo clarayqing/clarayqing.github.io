@@ -1,4 +1,4 @@
-# Chloe Lee — personal website
+# Clara Lee — personal website
 
 Live at https://chloeyqing.github.io/.
 
