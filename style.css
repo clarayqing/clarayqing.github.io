@@ -74,6 +74,17 @@ main:focus, section:focus, article:focus { outline: none; }
 .mobile-nav a:hover { background: var(--blue-soft); }
 .mobile-nav a > span { font-family: var(--mono); font-size: .75rem; color: var(--accent); }
 
+.arrow-up-right { position: relative; display: inline-block; flex: none; width: .8em; height: .8em; }
+.arrow-up-right::before, .arrow-up-right::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-top: 1px solid;
+}
+.arrow-up-right::before { width: .47em; height: .47em; border-right: 1px solid; }
+.arrow-up-right::after { width: .94em; transform: rotate(-45deg); transform-origin: right center; }
+
 /* Shared typography and links. */
 .eyebrow, .section-label { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
 .section-label { margin-bottom: 18px; }
@@ -259,10 +270,6 @@ h1 { margin-top: 22px; font-size: clamp(3.6rem, 6.45vw, 5.35rem); line-height: 1
 .research-notes p + p { margin-top: 12px; }
 .research-notes .text-link { margin-top: 8px; font-size: .75rem; }
 .project-note {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
-    gap: 26px;
     margin-top: 24px;
     padding: 24px 28px;
     border: 1px solid var(--line);
@@ -272,7 +279,6 @@ h1 { margin-top: 22px; font-size: clamp(3.6rem, 6.45vw, 5.35rem); line-height: 1
 .project-note .eyebrow { color: var(--berry); font-size: .7rem; }
 .project-note h3 { margin-top: 8px; font-size: 1.15rem; font-weight: 600; letter-spacing: -.025em; }
 .project-note p:not(.eyebrow) { max-width: 690px; margin-top: 7px; color: var(--muted); font-size: .86rem; }
-.note-symbol { font-size: 3rem; line-height: 1.2; color: var(--berry); }
 
 /* Academic milestones. */
 .achievements-section {
@@ -399,7 +405,6 @@ h1 { margin-top: 22px; font-size: clamp(3.6rem, 6.45vw, 5.35rem); line-height: 1
     .research-results { padding: 30px 28px; }
     .project-note { padding: 20px 24px; }
     .project-note h3 { font-size: 1.07rem; }
-    .note-symbol { display: none; }
     .achievements-section { padding-block: 68px; }
     .achievements-layout { grid-template-columns: 1fr; gap: 37px; }
     .achievement-list { padding-inline: 18px; }
