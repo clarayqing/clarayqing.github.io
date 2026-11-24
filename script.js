@@ -36,3 +36,32 @@ if (menu) {
         }
     });
 }
+
+// The table is the source for both chart views and works on its own.
+const comparison = document.querySelector(".error-comparison");
+
+if (comparison) {
+    const picker = comparison.querySelector(".test-picker");
+    const errors = Array.from(comparison.querySelectorAll(".results-table td"), (cell) => ({
+        cell,
+        value: Number.parseFloat(cell.textContent)
+    }));
+    const maximum = Math.max(...errors.map(({ value }) => value));
+
+    if (Number.isFinite(maximum)) {
+        const scale = Math.max(5, Math.ceil(maximum / 5) * 5);
+        comparison.querySelector(".chart-scale").textContent = `Bars use a shared 0–${scale}% scale.`;
+
+        for (const { cell, value } of errors) {
+            cell.style.setProperty("--error-width", `${100 * value / scale}%`);
+        }
+
+        function selectTestSet() {
+            comparison.dataset.view = picker.querySelector(":checked").value;
+        }
+
+        picker.addEventListener("change", selectTestSet);
+        selectTestSet();
+        picker.hidden = false;
+    }
+}

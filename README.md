@@ -7,22 +7,23 @@ research, and competition milestones. Hosted on GitHub Pages from the main branc
 
 ## Editing
 
-- index.html: bio, project descriptions, evaluation numbers, achievements, and links.
-- style.css: the pastel palette, typography, desktop layout, and mobile breakpoints.
-- script.js: progressive enhancement for the native mobile navigation menu.
-- favicon.svg: the site's vector icon.
+- `index.html` contains the bio, projects, CO₂ results table, achievements, and C++ notebook.
+- `style.css` contains the blue, pink, and white palette, typography, layouts, and breakpoints.
+- `script.js` enhances the native mobile menu and CO₂ test set comparison.
+- `favicon.svg` is the site's icon.
 
 There is no build step. All assets are local; the site does not load third-party
-scripts, fonts, analytics, or frameworks. The menu and research notes use native
-details/summary elements and remain usable without JavaScript.
+scripts, fonts, analytics, or frameworks. Without JavaScript, the page shows both
+CO₂ test sets in a table. The mobile menu, research details, and C++ solution use
+native disclosures.
 
 ## Content sources
 
 Research metrics and domain notes come from
 https://github.com/clarayqing/real-gas-correction and its tracked
-results/tables/final_test_comparison.csv. Keep the table, summary figures, and
-evaluation notes in sync when the research changes. The errors measure agreement
-with CoolProp reference data for CO₂ within the documented domain.
+results/tables/final_test_comparison.csv. Update the table and evaluation notes
+when the research changes. The chart reads its values from the table. The errors
+measure agreement with CoolProp reference data for CO₂ within the documented domain.
 
 Competition milestones and the Young Turing Program project description are
 owner-supplied. Preserve distinctions between individual and team results, tied
