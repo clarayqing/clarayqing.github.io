@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="解題思路">
+    <title>P1637 三元上升子序列 | Clara Lee</title>
+    <link rel="canonical" href="https://clarayqing.github.io/posts/Luogu-P1637.html">
+    <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link rel="stylesheet" href="../blog/blog.css">
+    <script src="../blog/blog.js" defer></script>
+</head>
+<body class="writing-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../">
+                <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
+                Clara Lee
+            </a>
+            <nav class="writing-nav" aria-label="Primary navigation">
+                <a href="../">Portfolio</a>
+                <a href="../blog/" aria-current="location">Blog</a>
+                <a href="../resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" class="container reading-page" tabindex="-1">
+        <a class="text-link back-to-blog" href="../blog/">← All posts</a>
+        <article aria-labelledby="post-title">
+            <header class="writing-heading">
+                <div>
+                    <div class="post-details"><time datetime="2026-01-23">Jan 23, 2026</time></div>
+                    <h1 id="post-title" lang="zh-Hant">P1637 三元上升子序列</h1>
+                    <div class="post-tags"><span class="post-tag">Editorial</span> <span class="post-tag">Luogu</span></div>
+                </div>
+                <button class="theme-switch" type="button" aria-pressed="false" hidden>Dark mode</button>
+            </header>
+            <div class="post-prose" lang="zh-Hant">
+<p>題目來源：洛谷 P1637</p>
+<p>題目輸入：給一個長度為 ｎ 得數列 a_1 a_2 a_3 ... a_n 要找到一組數字 i&lt;j&lt;k s.t. a_i&lt;a_j&lt;a_k 並求出有多少組數字 (i,j,k)</p>
+<p>利用兩個樹狀陣列（樹狀數組）t1 維護前面有多少個小於目前的數字 t2 維護前面有多少組 i&lt;j 所以只要每次加一個新數字前加上 t2 比這數字小的和就可以了</p>
+<br>
+<p>實作程式碼：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int x;cin&gt;&gt;x;
+ans+=t2.query(x-1); // 加上有多少組 i&lt;j
+t2.add(x,t1.query(x-1));
+t1.add(x,1);
+</code></pre>
+
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer container">
+        <p>© 2026 Clara Lee</p>
+        <a href="../blog/">LemonMatcha blog</a>
+    </footer>
+</body>
+</html>

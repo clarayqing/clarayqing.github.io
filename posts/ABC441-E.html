@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="解題思路">
+    <title>ABC441 pE | Clara Lee</title>
+    <link rel="canonical" href="https://clarayqing.github.io/posts/ABC441-E.html">
+    <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link rel="stylesheet" href="../blog/blog.css">
+    <script src="../blog/blog.js" defer></script>
+</head>
+<body class="writing-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../">
+                <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
+                Clara Lee
+            </a>
+            <nav class="writing-nav" aria-label="Primary navigation">
+                <a href="../">Portfolio</a>
+                <a href="../blog/" aria-current="location">Blog</a>
+                <a href="../resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" class="container reading-page" tabindex="-1">
+        <a class="text-link back-to-blog" href="../blog/">← All posts</a>
+        <article aria-labelledby="post-title">
+            <header class="writing-heading">
+                <div>
+                    <div class="post-details"><time datetime="2026-01-21">Jan 21, 2026</time></div>
+                    <h1 id="post-title">ABC441 pE</h1>
+                    <div class="post-tags"><span class="post-tag">Editorial</span> <span class="post-tag">AtCoder</span></div>
+                </div>
+                <button class="theme-switch" type="button" aria-pressed="false" hidden>Dark mode</button>
+            </header>
+            <div class="post-prose" lang="zh-Hant">
+<p>題目來源：ABC pE - A &gt; B substring</p>
+<p>題目輸入：給一個長度為 N 的字串 S 求有多少個子字串中的 A 比 B 多 字串 S 只有 A B C 三種字母</p>
+<br>
+<p>考慮子字串 [0, i] 時 要找出 [0, i-1] 的子字串有多少的 cnt_A-cnt_B 比現在的 cnt_A-cnt_B 少</p>
+<p>利用樹狀陣列紀錄 cnt_A-cnt_B 的值 每次將 cnt_A-cnt_B 值增加一 就查找最小值到 cnt_A-cnt_B-1 的和 應為這些是在考慮這字母前的子字串的紀錄</p>
+<br>
+<p>初始值：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int const c=5e5;
+int n;
+int a[2*c+10]={0};</code></pre>
+<br>
+<p>lowbit 函式：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int lowbit(int x){
+    return x&amp;-x;
+}</code></pre>
+<br>
+<p>點更新：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">void update(int x,int k){
+    while(x&lt;=2*c+5)a[x]+=k,x+=lowbit(x);
+}</code></pre>
+<br>
+<p>區間求和</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int query(int x){
+    int t=0;
+    while(x)t+=a[x],x-=lowbit(x);
+    return t;
+}</code></pre>
+<br>
+<p>預處理 cnt_A-cnt_B 的值：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">cin&gt;&gt;n;
+string s;cin&gt;&gt;s;
+vector&lt;int&gt; ps(n,0);
+if(s[0]=='A')ps[0]=1;
+if(s[0]=='B')ps[0]=-1;
+for(int i=1;i&lt;n;i++){
+    if(s[i]=='A')ps[i]=ps[i-1]+1;
+    else if(s[i]=='B')ps[i]=ps[i-1]-1;
+    else ps[i]=ps[i-1];
+}
+</code></pre>
+<br>
+<p>答案計算：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">long long ans=0;
+update(c+1,1);
+for(int i=0;i&lt;n;i++){
+    update(ps[i]+c+1,1);
+    ans+=query(ps[i]+c);
+}
+cout&lt;&lt;ans;
+</code></pre>
+
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer container">
+        <p>© 2026 Clara Lee</p>
+        <a href="../blog/">LemonMatcha blog</a>
+    </footer>
+</body>
+</html>

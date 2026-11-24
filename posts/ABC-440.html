@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="爆掉的一場比賽">
+    <title>ABC 440 | Clara Lee</title>
+    <link rel="canonical" href="https://clarayqing.github.io/posts/ABC-440.html">
+    <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link rel="stylesheet" href="../blog/blog.css">
+    <script src="../blog/blog.js" defer></script>
+</head>
+<body class="writing-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../">
+                <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
+                Clara Lee
+            </a>
+            <nav class="writing-nav" aria-label="Primary navigation">
+                <a href="../">Portfolio</a>
+                <a href="../blog/" aria-current="location">Blog</a>
+                <a href="../resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" class="container reading-page" tabindex="-1">
+        <a class="text-link back-to-blog" href="../blog/">← All posts</a>
+        <article aria-labelledby="post-title">
+            <header class="writing-heading">
+                <div>
+                    <div class="post-details"><time datetime="2026-01-10">Jan 10, 2026</time></div>
+                    <h1 id="post-title">ABC 440</h1>
+                    <div class="post-tags"><span class="post-tag">AtCoder</span> <span class="post-tag">Contest</span> <span class="post-tag">Reflection</span></div>
+                </div>
+                <button class="theme-switch" type="button" aria-pressed="false" hidden>Dark mode</button>
+            </header>
+            <div class="post-prose" lang="zh-Hant">
+<p>目前 2/52</p>
+<p>上週打的 ABC 成績挺好 想說這週應該可以繼續這手氣 結果並沒有</p>
+<p>早上才打完 USACO Silver 竟然滿分晉級 Gold 了～～ 好耶</p>
+<p>pA 水</p>
+<p>pB 把數字放到一個 vecotr<pair<int,int>&gt; 裡面 在放編號 sort 一下 輸出</pair<int,int></p>
+<p>pC 這題光是題目就花了些時間理解 然後把題目的 case 寫在紙上 排一下 應該是 sliding window</p>
+<p>先把間隔標示出來 連選 w 個 再連跳 w 個 一直重複到 n 但因為他只個會是一個 cycle 就把兩個這樣的序列黏在一起 再把 c 也做一次一樣的事 結果錯了</p>
+<p>想了一下 發現這樣根本不會枚舉到 到這時已經過了 30 分鐘了 往常這時都開始 pD 了 現在連 pC 正確的架構都沒想好 後來想了一下 發現可以用一個回圈跑每一種選法 裡面的回圈在對已經計算好的初始直調整 對每一個連許選擇的 w 去掉前面 加上後面 但感覺複雜度有點高 寫下來發現複雜度是 O(w(n/w)) = O(n) 那感覺行 只是實作會有很多邊界問題要處理</p>
+<p>寫完後跑了一下 sample test case 竟然也錯了</p>
+<p>Input: </p>
+<p>4 100</p>
+<p>100000 100000 100000 100000</p>
+<p>答案應該是 0 卻跑出了一個很大的負數 但其他的都對 所以直接套了一個 ans=max(ans,0) 就丟進去 judge 裡了 雖然自己也知道高機率錯 但也沒想到竟然一個 case 都沒對 全部都是 WA 和 RE</p>
+<p>後來把可能會有邊界問題的地方都加了判斷 順便移掉 ans=max(ans,0) 再丟進去 就 AC 了 但也只剩 17 多分鐘了</p>
+<p>pD 看了一下 感覺比 pC 簡單 題目敘述很好理解 題目會給一了數列 要找到從 x 開始後的第 y 個沒在數列裡的 先用 lower_bound 找 x 在哪裏 至於要怎麼找到 y 個數字後 我就沒想法了 感覺如果先把 x 的位置直接加 y 在算中間經過多少數字 從 x+y 繼續找 應該可以 但如果出題者有出極端測資 還是會被卡 然後比賽就結束了</p>
+<p>這次比賽有點淒慘 rk. 5116 [¬º-°]¬ rating -12 也不想通宵打 USACO Gold 了 所以就去睡覺了 (=____=)</p>
+
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer container">
+        <p>© 2026 Clara Lee</p>
+        <a href="../blog/">LemonMatcha blog</a>
+    </footer>
+</body>
+</html>

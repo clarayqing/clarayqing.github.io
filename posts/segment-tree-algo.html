@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="線段樹基礎">
+    <title>線段樹 | Clara Lee</title>
+    <link rel="canonical" href="https://clarayqing.github.io/posts/segment-tree-algo.html">
+    <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link rel="stylesheet" href="../blog/blog.css">
+    <script src="../blog/blog.js" defer></script>
+</head>
+<body class="writing-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../">
+                <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
+                Clara Lee
+            </a>
+            <nav class="writing-nav" aria-label="Primary navigation">
+                <a href="../">Portfolio</a>
+                <a href="../blog/" aria-current="location">Blog</a>
+                <a href="../resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" class="container reading-page" tabindex="-1">
+        <a class="text-link back-to-blog" href="../blog/">← All posts</a>
+        <article aria-labelledby="post-title">
+            <header class="writing-heading">
+                <div>
+                    <div class="post-details"><time datetime="2026-01-18">Jan 18, 2026</time></div>
+                    <h1 id="post-title" lang="zh-Hant">線段樹</h1>
+                    <div class="post-tags"><span class="post-tag">Tutorial</span></div>
+                </div>
+                <button class="theme-switch" type="button" aria-pressed="false" hidden>Dark mode</button>
+            </header>
+            <div class="post-prose" lang="zh-Hant">
+<p>線段樹功能：區間查詢 區間修改</p>
+<p>線段樹是將每個長度不為一個點分成左右兩個區間 直到分成長度為一的點時 返回</p>
+<p>線段數記憶體：4*N</p>
+<p>樹的元素：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int n,a[n];
+struct node{
+	int l,r,sum,add;
+	// l: 左邊界
+	// r: 右邊界
+	// sum: 區間和
+	// add: 懶惰標記
+}tree[n*4];
+</code></pre>
+<br>
+<p>懶惰標記向下更新：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">void pushdown(int pos){
+	if(tree[pos].add){
+		int l=pos*2,r=pos*2+1;
+		tree[l].sum+=tree[pos].add*(tree[l].r-tree[l].l+1);
+		tree[r].sum+=tree[pos].add*(tree[r].r-tree[r].l+1);
+		tree[l].add+=tree[pos].add;
+		tree[r].add+=tree[pos].add;
+		tree[pos].add=0;
+	}
+}
+</code></pre>
+<br>
+<p>向上更新：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">void pushup(int pos){
+	int l=pos*2,r=pos*2+1;
+	tree[pos].sum=tree[l].sum+tree[r].sum;
+}
+</code></pre>
+<br>
+<p>初始：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">void build(int pos, int l, int r){
+	tree[pos]={l,r,w[l],0}; // 如果長度大於 1 sum 值就會被改掉
+	if(l==r)return; // 長度為 1 就回傳
+	int mid=r+l&gt;&gt;1;
+	build(pos*2,l,mid);
+	build(pos*2+1,mid+1,r);
+	pushup(pos);
+}
+</code></pre>
+<br>
+<p>區間更新：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">void update(int pos, int l, int r, int k){
+	if(l&lt;=tree[pos].l &amp;&amp; tree[pos].r&lt;=r){
+		tree[pos].sum+=(tree[pos].r-tree[pos].l+1)*k;
+		tree[pos].add+=k;
+		return;
+	}
+	int mid=tree[pos].l+tree[pos].r&gt;&gt;1;
+	pushdown(pos);
+	if(l&lt;=mid)update(pos*2,l,r,k);
+	if(r&gt;mid)update(pos*2+1,l,r,k);
+  	pushup(pos);
+}
+</code></pre>
+<br>
+<p>區間查詢：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int query(int pos, int l, int r){
+	if(l&lt;=tree[pos].l &amp;&amp; tree[pos].r&lt;=r)return tree[pos].sum;
+	int mid=tree[pos].l+tree[pos].r&gt;&gt;1;
+	pushdown(pos);
+	int sum=0;
+	if(l&lt;=mid)sum+=query(pos*2,l,r);
+	if(r&gt;mid)sum+=query(pos*2+1,l,r);
+	return sum;
+}
+</code></pre>
+<br>
+<br>
+<p>示範題：</p>
+<p><a href="https://www.luogu.com.cn/problem/P3374" target="_blank" rel="noreferrer">Luogu P3374</a></p>
+<p>題解：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">cin&gt;&gt;n&gt;&gt;m;
+for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i];
+build(1,1,n);
+while(m--){
+    int ty,x,y;cin&gt;&gt;ty&gt;&gt;x&gt;&gt;y;
+    if(ty==1)update(1,x,x,y);
+    else cout&lt;&lt;query(1,x,y)&lt;&lt;'\n';
+}
+</code></pre>
+<br>
+<br>
+<p><a href="https://www.luogu.com.cn/problem/P3372" target="_blank" rel="noreferrer">Luogu P3372</a></p>
+<p>題解：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">cin&gt;&gt;n&gt;&gt;m;
+for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i];
+build(1,1,n);
+while(m--){
+    int ty,x,y;cin&gt;&gt;ty&gt;&gt;x&gt;&gt;y;
+    if(ty&amp;1){
+        long long k;cin&gt;&gt;k;
+        update(1,x,y,k);
+    }
+    else cout&lt;&lt;query(1,x,y)&lt;&lt;'\n';
+}
+</code></pre>
+
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer container">
+        <p>© 2026 Clara Lee</p>
+        <a href="../blog/">LemonMatcha blog</a>
+    </footer>
+</body>
+</html>

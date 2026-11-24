@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="樹狀陣列/BIT">
+    <title>樹狀陣列 | Clara Lee</title>
+    <link rel="canonical" href="https://clarayqing.github.io/posts/fenwick-tree.html">
+    <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link rel="stylesheet" href="../blog/blog.css">
+    <script src="../blog/blog.js" defer></script>
+    <script src="../blog/fenwick.js" defer></script>
+</head>
+<body class="writing-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../">
+                <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
+                Clara Lee
+            </a>
+            <nav class="writing-nav" aria-label="Primary navigation">
+                <a href="../">Portfolio</a>
+                <a href="../blog/" aria-current="location">Blog</a>
+                <a href="../resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" class="container reading-page" tabindex="-1">
+        <a class="text-link back-to-blog" href="../blog/">← All posts</a>
+        <article aria-labelledby="post-title">
+            <header class="writing-heading">
+                <div>
+                    <div class="post-details"><time datetime="2026-01-21">Jan 21, 2026</time></div>
+                    <h1 id="post-title" lang="zh-Hant">樹狀陣列</h1>
+                    <div class="post-tags"><span class="post-tag">Tutorial</span></div>
+                </div>
+                <button class="theme-switch" type="button" aria-pressed="false" hidden>Dark mode</button>
+            </header>
+            <div class="post-prose" lang="zh-Hant">
+<p>
+樹狀陣列（Fenwick Tree / BIT）是一種用 O(N) 空間維護前綴資訊的資料結構，
+專門用來處理「單點修改」與「前綴和 / 區間和查詢」
+</p>
+<p>
+BIT 之所以能運作 是因為它維護的資訊必須滿足 結合律（例如加法）
+並且能透過前綴差分得到區間答案：
+sum(l..r) = prefix(r) - prefix(l-1) 因此最常見用途是維護「和」也可擴展到 XOR 等可用前綴差分的運算
+</p>
+<p>
+樹狀陣列支援：
+</p>
+<ul>
+  <li>單點修改：a[x] += v 時間 O(log N)</li>
+  <li>前綴和：sum(1..x) 時間 O(log N)</li>
+  <li>區間和：sum(l..r) = prefix(r) - prefix(l-1) 時間 O(log N)</li>
+</ul>
+<p>
+其中關鍵函式是 lowbit(x)：
+lowbit(x) = x &amp; (-x)
+代表 x 的二進位中「最右邊的 1」所對應的值（2 的冪次） 
+例如：
+</p>
+<ul>
+  <li>lowbit(8 = 1000) = 8</li>
+  <li>lowbit(7 = 0111) = 1</li>
+  <li>lowbit(6 = 0110) = 2</li>
+</ul>
+<p>
+BIT 的節點意義是：bit[i] 管理一段連續區間的總和：
+[ i - lowbit(i) + 1 , i ] 
+也就是「以 i 為右端點、長度為 lowbit(i) 的區間」 
+</p>
+<p>
+例如：
+</p>
+<ul>
+  <li>bit[8]：lowbit(8)=8 → 管 [1, 8]</li>
+  <li>bit[7]：lowbit(7)=1 → 管 [7, 7]</li>
+  <li>bit[6]：lowbit(6)=2 → 管 [5, 6]</li>
+</ul>
+<p>
+為什麼查詢和更新都是 O(logN)？
+</p>
+<ul>
+  <li>查詢 prefix(x)：從 x 開始 把 bit[x] 加進答案後 令 x -= lowbit(x) 不斷往前跳直到 0</li>
+  <li>更新 add(x, v)：從 x 開始 令 bit[x] += v 然後 x += lowbit(x) 跳到下一個「包含 x 的更大區間」 直到超過 N</li>
+</ul>
+因此：
+<ul>
+  <li>x + lowbit(x) 可以視為「往上跳到父節點」</li>
+  <li>x - lowbit(x) 可以視為「往前跳到剩下前綴」</li>
+</ul>
+<br>
+<p>實作程式碼：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int lowbit(int x){
+    return x&amp;-x;
+}
+  
+void change(int x,int k){
+    while(x&lt;=n)a[x]+=k,x+=lowbit(x);
+}
+  
+int query(int x){
+    int t=0;
+    while(x)t+=a[x],x-=lowbit(x);
+    return t;
+}</code></pre>
+<br>
+<section class="bit-demo" id="bit-demo" aria-labelledby="bit-demo-title" hidden>
+    <h2 id="bit-demo-title">Fenwick Tree 視覺化</h2>
+    <p>更新時會標出受影響的節點。查詢時會標出前綴和用到的節點。</p>
+    <form id="bit-build" class="bit-form">
+        <label>陣列長度<input id="bit-size" type="number" min="1" max="32" value="8" required></label>
+        <label class="bit-values-label">初始數值（以空格分隔）<input id="bit-values" type="text" value="3 1 4 1 5 9 2 6" aria-describedby="bit-help"></label>
+        <button class="bit-action" type="submit">建立樹狀陣列</button>
+    </form>
+    <p class="bit-help" id="bit-help">最多 32 項。少輸入的項目補 0，多出的項目會省略。</p>
+    <div class="bit-operations">
+        <form id="bit-update" class="bit-form">
+            <label>更新位置<input id="bit-update-index" type="number" min="1" max="8" value="3" required></label>
+            <label>增加量<input id="bit-delta" type="number" step="any" value="5" required></label>
+            <button class="bit-action" type="submit">更新</button>
+        </form>
+        <form id="bit-query" class="bit-form">
+            <label>前綴結束位置<input id="bit-query-index" type="number" min="1" max="8" value="6" required></label>
+            <button class="bit-action" type="submit">查詢前綴和</button>
+        </form>
+    </div>
+    <h3 id="bit-array-title">原陣列 a[i]</h3>
+    <ol id="bit-array" class="bit-cells" aria-labelledby="bit-array-title"></ol>
+    <h3 id="bit-tree-title">樹狀陣列 bit[i]</h3>
+    <ol id="bit-tree" class="bit-cells" aria-labelledby="bit-tree-title"></ol>
+    <output id="bit-status" class="bit-status" aria-live="polite"></output>
+    <button id="bit-clear" class="bit-action" type="button">清除標記</button>
+</section>
+<noscript><p>啟用 JavaScript 後即可操作 Fenwick Tree 視覺化。</p></noscript>
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer container">
+        <p>© 2026 Clara Lee</p>
+        <a href="../blog/">LemonMatcha blog</a>
+    </footer>
+</body>
+</html>

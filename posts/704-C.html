@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="解題思路">
+    <title>C. Maximum width | Clara Lee</title>
+    <link rel="canonical" href="https://clarayqing.github.io/posts/704-C.html">
+    <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link rel="stylesheet" href="../blog/blog.css">
+    <script src="../blog/blog.js" defer></script>
+</head>
+<body class="writing-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../">
+                <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
+                Clara Lee
+            </a>
+            <nav class="writing-nav" aria-label="Primary navigation">
+                <a href="../">Portfolio</a>
+                <a href="../blog/" aria-current="location">Blog</a>
+                <a href="../resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" class="container reading-page" tabindex="-1">
+        <a class="text-link back-to-blog" href="../blog/">← All posts</a>
+        <article aria-labelledby="post-title">
+            <header class="writing-heading">
+                <div>
+                    <div class="post-details"><time datetime="2026-01-22">Jan 22, 2026</time></div>
+                    <h1 id="post-title">C. Maximum width</h1>
+                    <div class="post-tags"><span class="post-tag">Editorial</span> <span class="post-tag">Codeforces</span></div>
+                </div>
+                <button class="theme-switch" type="button" aria-pressed="false" hidden>Dark mode</button>
+            </header>
+            <div class="post-prose" lang="zh-Hant">
+<p>題目來源：Codeforces Round 704 (Div. 2)</p>
+<p>題目敘述：給兩個字串 s 和 t 其長度分別為 n 和 m 要找到一組 p_1 p_2 p_3 ... p_m (increasing order) 的片列使得 s[p_i]=t[i] 一組 p 序列的寬是 max(p_i+1 - p_i)</p>
+<p>先找一組最小的 p 序列 從 s 的開頭開始對 t 紀錄 pos 遇到 t[i] 就記錄下來並繼續 再從 s 的後面進行一樣的紀錄 並對於 pos 的差進行比較</p>
+<br>
+<p>初始：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int n,m;cin&gt;&gt;n&gt;&gt;m;
+string s,t;cin&gt;&gt;s&gt;&gt;t;
+int pos[n+1];
+int cur=0;
+</code></pre>
+<br>
+<p>紀錄第一個出現 t[i] 的位置</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">for(int i=0;i&lt;m;i++){
+    while(s[cur]!=t[i])cur++;
+    pos[i]=cur++;
+}
+</code></pre>
+<br>
+<p>紀錄最後一個出現 t[i] 的位置</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">cur=n-1;
+for(int i=m-1;i&gt;0;i--){
+    while(s[cur]!=t[i])cur--;
+    ans=max(ans,cur-pos[i-1]);
+    cur--;
+}
+</code></pre>
+
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer container">
+        <p>© 2026 Clara Lee</p>
+        <a href="../blog/">LemonMatcha blog</a>
+    </footer>
+</body>
+</html>

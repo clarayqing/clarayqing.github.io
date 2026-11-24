@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="解題思路">
+    <title>P1471 方差 | Clara Lee</title>
+    <link rel="canonical" href="https://clarayqing.github.io/posts/Luogu-P1471.html">
+    <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link rel="stylesheet" href="../blog/blog.css">
+    <script src="../blog/blog.js" defer></script>
+</head>
+<body class="writing-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../">
+                <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
+                Clara Lee
+            </a>
+            <nav class="writing-nav" aria-label="Primary navigation">
+                <a href="../">Portfolio</a>
+                <a href="../blog/" aria-current="location">Blog</a>
+                <a href="../resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" class="container reading-page" tabindex="-1">
+        <a class="text-link back-to-blog" href="../blog/">← All posts</a>
+        <article aria-labelledby="post-title">
+            <header class="writing-heading">
+                <div>
+                    <div class="post-details"><time datetime="2026-01-20">Jan 20, 2026</time></div>
+                    <h1 id="post-title" lang="zh-Hant">P1471 方差</h1>
+                    <div class="post-tags"><span class="post-tag">Editorial</span> <span class="post-tag">Luogu</span></div>
+                </div>
+                <button class="theme-switch" type="button" aria-pressed="false" hidden>Dark mode</button>
+            </header>
+            <div class="post-prose" lang="zh-Hant">
+<p>題目來源：洛谷 P1471 方差</p>
+<p>題目：N 個數 其中第 i 個數表示數列的第 i 項 接下來 M 行 每行為一條操作 格式為以下三種：</p>
+<p>操作 1：1 x y k 表示將第 x 到第 y 項加上 k</p>
+<p>操作 2：2 x y 表示求第 x 到第 y 項這數列的平均數</p>
+<p>操作 3：3 x y 表示求第 x 到第 y 項這數列的變異數</p>
+<br>
+<p>
+變異數的公式是 <math><mfrac><mn>1</mn><mi>n</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msup><mrow><mo>(</mo><msub><mi>A</mi><mi>i</mi></msub><mo>−</mo><mover accent="true"><mi>A</mi><mo>¯</mo></mover><mo>)</mo></mrow><mn>2</mn></msup></math>
+可以化簡成 <math><mfrac><mrow><msubsup><mi>a</mi><mn>1</mn><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>a</mi><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><mo>⋯</mo><mo>+</mo><msubsup><mi>a</mi><mi>n</mi><mn>2</mn></msubsup></mrow><mi>n</mi></mfrac><mo>−</mo><msup><mover accent="true"><mi>a</mi><mo>¯</mo></mover><mn>2</mn></msup></math>
+所以每個點只需要記錄 sum 和 sum of square
+但如果要算平方數的和 那就沒辦法用懶惰標記
+update 的時間就會變成 <math><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></math>
+所以要簡化 <math><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msup><mrow><mo>(</mo><msub><mi>a</mi><mi>i</mi></msub><mo>+</mo><mi>k</mi><mo>)</mo></mrow><mn>2</mn></msup></math>
+成 <math><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msubsup><mi>a</mi><mi>i</mi><mn>2</mn></msubsup><mo>+</mo><mn>2</mn><mi>k</mi><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>a</mi><mi>i</mi></msub><mo>+</mo><mi>n</mi><msup><mi>k</mi><mn>2</mn></msup></math> 這樣每一個操作都可以用 O(logN) 完成了
+</p>
+<br>
+<p>初始線段樹：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int const c=1e5+1;
+vector&lt;double&gt; a(c);
+  
+struct node{
+   int l,r;
+   double sum,sqrsum,add;
+}tree[c*4];
+  
+void pushup(int pos){
+   int l=pos*2,r=pos*2+1;
+   tree[pos].sum=tree[l].sum+tree[r].sum;
+   tree[pos].sqrsum=tree[l].sqrsum+tree[r].sqrsum;
+}
+  
+void build(int pos, int l, int r){
+   tree[pos]={l,r,a[l],a[l]*a[l],0};
+   if(l==r)return;
+   int mid=r+l&gt;&gt;1;
+   build(pos*2,l,mid);
+   build(pos*2+1,mid+1,r);
+   pushup(pos);
+}</code></pre>
+<br>
+<p>區間更新：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">void update(int pos, int l, int r, double k){
+   if(l&lt;=tree[pos].l &amp;&amp; tree[pos].r&lt;=r){
+       tree[pos].sqrsum+=2*k*(tree[pos].sum)+k*k*(tree[pos].r-tree[pos].l+1);
+       tree[pos].sum+=(tree[pos].r-tree[pos].l+1)*k;
+       tree[pos].add+=k;
+       return;
+   }
+   int mid=tree[pos].l+tree[pos].r&gt;&gt;1;
+   pushdown(pos);
+   if(l&lt;=mid)update(pos*2,l,r,k);
+   if(r&gt;mid)update(pos*2+1,l,r,k);
+   pushup(pos);
+}</code></pre>
+<br>
+<p>區間查詢：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">double querysum(int pos, int l, int r){
+   if(l&lt;=tree[pos].l &amp;&amp; tree[pos].r&lt;=r)return tree[pos].sum;
+   int mid=tree[pos].l+tree[pos].r&gt;&gt;1;
+   pushdown(pos);
+   double sum=0;
+   if(l&lt;=mid)sum+=querysum(pos*2,l,r);
+   if(r&gt;mid)sum+=querysum(pos*2+1,l,r);
+   return sum;
+}
+  
+double querysqrsum(int pos, int l, int r){
+   if(l&lt;=tree[pos].l &amp;&amp; tree[pos].r&lt;=r)return tree[pos].sqrsum;
+   int mid=tree[pos].l+tree[pos].r&gt;&gt;1;
+   pushdown(pos);
+   double sum=0;
+   if(l&lt;=mid)sum+=querysqrsum(pos*2,l,r);
+   if(r&gt;mid)sum+=querysqrsum(pos*2+1,l,r);
+   return sum;
+}</code></pre>
+<br>
+<p>操作 1 ：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int x,y;cin&gt;&gt;x&gt;&gt;y;
+double k;cin&gt;&gt;k;
+update(1,x,y,k);</code></pre>
+<br>
+<p>操作 2 ：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int x,y;cin&gt;&gt;x&gt;&gt;y;
+cout&lt;&lt;fixed&lt;&lt;setprecision(4)&lt;&lt;(double)querysum(1,x,y)/(y-x+1)&lt;&lt;'\n';</code></pre>
+<br>
+<p>操作 3 ：</p>
+<pre tabindex="0" aria-label="C++ 程式片段"><code class="language-cpp">int x,y;cin&gt;&gt;x&gt;&gt;y;
+double avgsqrsum=querysqrsum(1,x,y)/(y-x+1);
+double avgsum=querysum(1,x,y)/(y-x+1);
+cout&lt;&lt;fixed&lt;&lt;setprecision(4)&lt;&lt;avgsqrsum-pow(avgsum,2)&lt;&lt;'\n';</code></pre>
+
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer container">
+        <p>© 2026 Clara Lee</p>
+        <a href="../blog/">LemonMatcha blog</a>
+    </footer>
+</body>
+</html>

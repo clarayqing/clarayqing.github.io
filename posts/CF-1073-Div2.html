@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description" content="2026 第一場 CF">
+    <title>CF 1073 Div. 2 | Clara Lee</title>
+    <link rel="canonical" href="https://clarayqing.github.io/posts/CF-1073-Div2.html">
+    <link rel="icon" href="../favicon.svg?v=2" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=3">
+    <link rel="stylesheet" href="../blog/blog.css">
+    <script src="../blog/blog.js" defer></script>
+</head>
+<body class="writing-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="../">
+                <span class="brand-mark" aria-hidden="true">c<span>✦</span></span>
+                Clara Lee
+            </a>
+            <nav class="writing-nav" aria-label="Primary navigation">
+                <a href="../">Portfolio</a>
+                <a href="../blog/" aria-current="location">Blog</a>
+                <a href="../resume.html">Résumé</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" class="container reading-page" tabindex="-1">
+        <a class="text-link back-to-blog" href="../blog/">← All posts</a>
+        <article aria-labelledby="post-title">
+            <header class="writing-heading">
+                <div>
+                    <div class="post-details"><time datetime="2026-01-17">Jan 17, 2026</time></div>
+                    <h1 id="post-title">CF 1073 Div. 2</h1>
+                    <div class="post-tags"><span class="post-tag">Codeforces</span> <span class="post-tag">Contest</span> <span class="post-tag">Reflection</span></div>
+                </div>
+                <button class="theme-switch" type="button" aria-pressed="false" hidden>Dark mode</button>
+            </header>
+            <div class="post-prose" lang="zh-Hant">
+<p>今年第一場 CF~</p>
+<p>上次打 CF 還是去年 10 月 CF 的時間不太友好 比較少打 剛剛才打完 ABC 所以今天打得有點累 (=____=)</p>
+<p>pA 水 先填顏色再 sort 可以的話就行 不行就不行 題目只是把要求講得很複雜而已</p>
+<p>pB 給一個數列 重新排列使得 MEX(1 2 3 … i) != MEX(i i+1 … n) 把不同 case 列出來就行</p>
+<p> - 如果整個數列都沒 0 那前後的 MEX 都會是 0 所以不行</p>
+<p> - 如果不只一個 0 那一定要有 1 否則當兩個 0 分開時前後的 MEX 都會是 1 符合就輸出 YES 不符合就 NO</p>
+<p>這感覺還需要嚴謹證明 但直覺上沒問題 上傳 AC 好耶</p>
+<p>pC 博弈論題 會改一串 binary 要選擇一部分遞減的數列 sort 後放回 選不了就輸了</p>
+<p>如果一開始就是 sort 好的 Bob 就贏了 如果沒 sort 好 那 Alice 就可以 sort 感覺 Alice 應該是可以一次就 sort 成功 但要怎麼構造出解才是問題 先做一次 prefix sum 再從後面數 0 如果 cnt0==ps[i] 那這個點以前的 1 都移到 這個點之後的 0 就行 上傳 WA 檢查一下 邊界有問題 修一下 AC</p>
+<p>pD1 括號題 要選出一個 sub bracket 使得他有比較早出現的 “(“</p>
+<p>研究了一下感覺只要在一組比較深的括號組前有一組比較淺的括號組 移除較淺的括號組就行 上傳 WA (ÒДÓױ)</p>
+<p>後來發現移除的未必是要 RBS 只要留下來的對就行 所以只要在這括號的前一半找到 “)” 就行 因為能同時一處後面的 讓剩下的配對起來扔是正常的括號 上傳 AC</p>
+<p>pD2 看一下 這時候只有 100 多人 寫出來 看完題目後免搶懂了 但完全沒想法</p>
+<p>pE 互動題 不寫</p>
+<p>剩下的題目都太難 就去睡覺了</p>
+<p>最後 rk. 1797 rating +86 打得還不錯</p>
+
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer container">
+        <p>© 2026 Clara Lee</p>
+        <a href="../blog/">LemonMatcha blog</a>
+    </footer>
+</body>
+</html>

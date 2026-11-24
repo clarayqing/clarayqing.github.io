@@ -11,6 +11,9 @@ research, and competition milestones. Hosted on GitHub Pages from the main branc
 - `style.css` contains the blue, pink, and white palette, typography, layouts, and breakpoints.
 - `script.js` enhances the native mobile menu and CO₂ test set comparison.
 - `favicon.svg` is the site's icon.
+- `blog/index.html` lists articles and their tags. The articles keep their original names under `posts/`.
+- `blog/blog.js` handles tag filtering and the blog’s theme. `blog/fenwick.js` powers the Fenwick tree demo.
+- `resume.html` summarizes the public projects and achievements listed on the portfolio.
 
 There is no build step. All assets are local; the site does not load third-party
 scripts, fonts, analytics, or frameworks. Without JavaScript, the page shows both
@@ -28,6 +31,11 @@ measure agreement with CoolProp reference data for CO₂ within the documented d
 Competition milestones and the Young Turing Program project description are
 owner-supplied. Preserve distinctions between individual and team results, tied
 rankings, qualifications, and publication status when updating them.
+
+The blog articles were imported from
+https://github.com/clarayqing/LemonMatcha.github.io at commit
+`800e7becd035ceabe409b32e712e7de9cff65f93`. The original MIT notice is in
+`licenses/lemonmatcha.txt`.
 
 ## Checks before publishing
 
